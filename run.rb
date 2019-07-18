@@ -3,14 +3,14 @@ require_relative 'config/environment'
 def welcome
     system "clear"
     puts "WELCOME TO WORKOUT WORLD!"
-    sleep(3,)
+    sleep(5,)
 end
 
 
 def main_menu(current_user)
     prompt = TTY::Prompt.new
     user_input = prompt.select("Choose your action",
-    %w(See_Your_Exercises See_All_Stats Add_Exercise Delete_Exercise Start_Over))
+    %w(See_Your_Exercises See_All_Stats Add_Exercise Delete_Exercise Edit_User Start_Over))
     
     case user_input 
     when "See_Your_Exercises"
@@ -27,6 +27,9 @@ def main_menu(current_user)
         main_menu(current_user)
     when "Start_Over"
         current_user = User.setup_user
+        main_menu(current_user)
+    when "Edit_User"
+        User.edit_user(current_user)
         main_menu(current_user)
     end
 end

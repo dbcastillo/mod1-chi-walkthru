@@ -47,4 +47,15 @@ class User < ActiveRecord::Base
         end
         current_user
       end
+
+      def self.edit_user(current_user)
+        puts "Please enter new username:"
+        user_name = gets.chomp
+        puts "Please enter new team:"
+        team_name = gets.chomp
+
+        current_user.update(name: user_name, team: team_name)
+
+        current_user
+      end
 end
