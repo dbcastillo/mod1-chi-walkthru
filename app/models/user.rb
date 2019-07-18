@@ -24,6 +24,9 @@ class User < ActiveRecord::Base
         current_user = User.create(name: user_name, team: team_name)
         system "clear"
         puts "New user created! Welcome, #{current_user.name}! You're on team #{current_user.team}"
+        sleep(3,)
+        system "clear"
+        current_user
       end
     
       def self.find_existing_user
@@ -34,9 +37,14 @@ class User < ActiveRecord::Base
         if self.all.map { |user| user.name }.include?(user_name)
             system "clear"
             puts "Welcome back, #{current_user.name}!"
+            sleep(3,)
+            system "clear"
         else
           puts "Username not found"
+          sleep(3,)
+          system "clear"
           find_existing_user
         end
+        current_user
       end
 end

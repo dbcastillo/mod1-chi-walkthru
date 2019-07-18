@@ -6,30 +6,33 @@ def welcome
     sleep(3,)
 end
 
+
 def main_menu(current_user)
     prompt = TTY::Prompt.new
     user_input = prompt.select("Choose your action",
-    %w(See_Exercises See_Stats Add_Exercise Delete_Exercise Delete_User))
-
+    %w(See_Your_Exercises See_All_Stats Add_Exercise Delete_Exercise Start_Over))
+    
     case user_input 
-    when "See_Exercises"
-        if current_user.exercises.empty?
-            puts "You have no exercises, please add an exercise"
-            main_menu(current_user)
-        else
-            current_user.exercises.each do |exercise|
-                puts exercise.name
-            end
-        end
-    when "See_Stats"
+    when "See_Your_Exercises"
+        Exercise.see_exercises(current_user)
+        main_menu(current_user)
+    when "See_All_Stats"
+        ExercisePlan.see_all_stats
+        main_menu(current_user)
     when "Add_Exercise"
+        Exercise.add_exercise(current_user)
+        main_menu(current_user)
     when "Delete_Exercise"
-    when "Delete_User"
+        Exercise.delete_exercise(current_user)
+        main_menu(current_user)
+    when "Start_Over"
+        current_user = User.setup_user
+        main_menu(current_user)
     end
 end
 
 welcome
 
 current_user = User.setup_user
-binding.pry
+
 main_menu(current_user)
